@@ -288,6 +288,12 @@ def get_arguments(settings):
         action="store_true",
         default=False,
     )
+    ag.add_argument(
+        "--fiopath",
+        help=f"Path to fio executable. Use it for custom built fio",
+        type=str,
+        default=settings["fiopath"],
+    )
     return parser
 
 def get_argument_description():
@@ -324,6 +330,7 @@ def get_argument_description():
         "remote_checks": "Check remote for open TCP port",
         "remote_timeout": "Check remote timeout (s)",
         "create": "Create if target doesn't exist",
-        "parallel": "Testing devices in parallel"
+        "parallel": "Testing devices in parallel",
+        "fiopath": "Path to [custom] fio executable"
     }
     return descriptions

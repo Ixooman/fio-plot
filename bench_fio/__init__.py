@@ -35,8 +35,8 @@ def gather_settings():
 
 def main():
     checks.check_encoding()
-    checks.check_if_fio_exists()
-    settings = gather_settings()    
+    settings = gather_settings()
+    checks.check_if_fio_exists(settings)
     network.remote_checks(settings)
     tests = supporting.generate_test_list(settings)
     display.display_header(settings, tests)

@@ -61,7 +61,11 @@ def run_fio(settings, benchmark):
     generatefio.generate_fio_job_file(settings, benchmark, output_directory, tmpjobfile)
 
     ### We build up the fio command line here
-    command = ["fio"]
+    ### Replace standard command with custom fio if we are using it
+    if settings.get("fiopath"):
+        command = [settings["fiopath"]]
+    else:
+        command = ["fio"]
 
     command.append("--output-format=json")
     command.append(f"--output={output_file}")  # fio bug
@@ -71,6 +75,9 @@ def run_fio(settings, benchmark):
 
     command.append(tmpjobfile)
     # End of command line creation
+
+    # Just print command line for debugging
+    print(f"\nFull command line: {command}\n")
 
     if not settings["dry_run"]:
         supporting.make_directory(output_directory)

@@ -6,20 +6,29 @@ from pathlib import Path
 from . import runfio
 
 
-def check_if_fio_exists():
-    command = "fio"
+def check_if_fio_exists(settings):
+    if settings.get("fiopath"):
+        command = settings["fiopath"]
+    else:
+        command = "fio"
+
     if shutil.which(command) is None:
         print("Fio executable not found in path. Is Fio installed?")
         print()
         sys.exit(1)
 
 
-def check_fio_version():
+def check_fio_version(settings):
     """The 3.x series .json format is different from the 2.x series format.
     This breaks fio-plot, thus this older version is not supported.
     """
 
-    command = ["fio", "--version"]
+    if settings.get("fiopath"):
+        command = [settings["fiopath"]]
+    else:
+        command = ["fio"]
+    command.append("--version")
+
     result = runfio.run_raw_command(command).stdout
     result = result.decode("UTF-8").strip()
     if "fio-3" in result:
@@ -89,7 +98,7 @@ def check_target_type(target, settings):
 def check_settings(settings):
     """Some basic error handling."""
 
-    check_fio_version()
+    check_fio_version(settings)
 
     if settings["entire_device"]:
         settings["runtime"] = None

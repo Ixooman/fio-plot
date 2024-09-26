@@ -15,6 +15,9 @@ def process_options(config):
         if x == "output":       
             # Argparse seems to auto-expand paths, if we import through INI we do it ourselves
             returndict[x] = os.path.expanduser(config["benchfio"][x])
+        elif x == "fiopath":
+            # Path to custom fio. Like a previous we expand paths ourselves
+            returndict[x] = os.path.expanduser(config["benchfio"][x])
         elif x in listtypes:
             returndict[x] = config.getlist('benchfio', x)
         elif x in booltypes:

@@ -82,7 +82,9 @@ def get_default_settings():
         "create",
         "parallel",
         "quiet",
+        "fiopath",
     ]
+    settings["fiopath"] = None
     settings["basename_list"] = ["precondition_template"]
     return settings
 

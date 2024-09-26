@@ -331,6 +331,6 @@ def get_argument_description():
         "remote_timeout": "Check remote timeout (s)",
         "create": "Create if target doesn't exist",
         "parallel": "Testing devices in parallel",
-        "fiopath": "Path to [custom] fio executable"
+        "fiopath": "Path to custom fio executable"
     }
     return descriptions
